@@ -1,10 +1,19 @@
 
-The idea is that no matter how large your openstack ceph deployment, 
+The idea behind the introspect-for-osds.py script is that no matter how large your openstack ceph deployment, 
 you could just run introspection, run this script, and it will generate correct per-node yaml for your deployment, 
 even if some nodes have slightly different device counts than other nodes.   
 So your Ceph storage.yaml is reduced to around 10 lines that you have to write, and most of that is boilerplate.   
 It does not require or use /dev/disk/by-path, using /dev/disk/by-id names instead wherever possible, 
 because these too are stable across node reboots done by OOO.
+
+To see CLI parameters for this script, 
+
+    # ./introspect-for-osds.py -h
+
+To run it:
+
+    stack# source stackrc
+    stack# ./introspect-for-osds.py
 
 WARNING: due to introspection bug 1466045 in reporting system disk info, 
 this script doesn't always work correctly unless you specify the OSD size parameter.  
