@@ -1,10 +1,15 @@
 #!/usr/bin/python
+
 # introspect-for-osds.py - this script automatically generates
 # YAML specifying OSDs for an entire OpenStack cluster, no matter how big,
 # using filtering parameters to select OSDs from introspection data,
 # and using WWN of block device to avoid problems with 
 # device name changes after reboot, which happens frequently during
 # a tripleo deploy.
+#
+# Copyright 2012 -- Ben England
+# Licensed under the Apache License at http://www.apache.org/licenses/LICENSE-2.0
+# See Appendix on this page for instructions pertaining to license.
 #
 # to get help:
 #   ./introspect-for-osds.py -h
