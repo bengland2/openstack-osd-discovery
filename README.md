@@ -26,7 +26,7 @@ To run it:
     stack# source stackrc
     stack# ./introspect-for-osds.py
 
-All parameters are optional but see warning below.   They are:
+All parameters are optional.   They are:
 
 * --result-dir (default /var/tmp/introspect_dir) - where YAML data is generated 
 * --device-name-pattern - regular expression for candidate device names
@@ -35,8 +35,18 @@ All parameters are optional but see warning below.   They are:
 * --journal-pattern - regular expression for Ceph journal devices
 * --min-journals-per-node - positive integer, error reported if fewer journals than this found on node
 
-WARNING: due to introspection bug 1466045 in reporting system disk info, 
-this script doesn't always work correctly unless you specify the OSD size parameter.  
-If we decide to implement something based on introspection data we should increase priority of bz 1466045.
+NOTE: due to introspection bug 1466045 in guessing system disk, you may need to provide root disk hints to OOO, this script doesn't do that, yet.
 
-I've tested it in two smaller openstack configs, will try to test it in a bigger one if possible.
+This script has been tested with a 192-OSD scale lab configuration including Dell 730xd servers.  It correctly generated yaml for 192 OSDs.   For example:
+
+    ./introspect-for-osds.py --result-dir ../introspect_dir3 \
+      --journal-pattern 'nvme[0-9]n1' \
+      --device-size 500 \
+      --device-name-pattern 'sd[b-z]' \
+
+
+For best results:
+* review yaml before using it, this tool is new and could have bugs.    
+* specify OSD drive size 
+* specify journal drive name pattern
+* specify OSD device name pattern
